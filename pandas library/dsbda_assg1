@@ -1,0 +1,42 @@
+#import required libraries
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Read dataset
+df = pd.read_csv('placement_data.csv')
+print('Dataset read successfully......\n')
+
+# Displaying all information
+
+print('**********Information of Dataset********** \n', df.info)
+print('**********Shape of Dataset (rows x columns)**********\n',df.shape)
+print('**********Columns name**********\n',df.columns)
+print('**********Total element in Dataset**********\n',df.size)
+print('**********Datatypes of attributes**********\n',df.dtypes)
+print('**********First 5 rows**********\n',df.head().T)
+print('**********Last 5 rows**********\n',df.tail().T)
+print('**********Statistical information of numerical columns**********\n',df.describe())
+print('**********Total number of null values in dataset**********\n',df.isna().sum())
+
+#Datatype conversion
+print('**********Datatype conversion**********\n')
+df['sl_no']=df['sl_no'].astype('int8')
+print('Check datatype of sa_no : ',df.dtypes['sl_no'])
+df['ssc_p']=df['ssc_p'].astype('int8')
+print('Check the datatype of ssc_p : ',df.dtypes['ssc_p'])
+
+#Encoding
+print('***********Encoding using Lable encoding (cat codes)**********\n')
+df['gender']=df['gender'].astype('category')
+print('Datatype of gender : ',df.dtypes['gender'])
+df['gender']=df['gender'].cat.codes
+print('Datatype of gender after encoding : ',df.dtypes['gender'])
+print('gender value : ',df['gender'].unique())
+
+#normalization
+print('***********Normalization using Min_Max feature scaling**********\n')
+df['salary']=(df['salary']-df['salary'].min())/(df['salary'].max()-df['salary'].min())
+print(df.head().T)
